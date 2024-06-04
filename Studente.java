@@ -1,12 +1,20 @@
 package com.mycompany.registroelettronico;
 import java.util.Vector;
 import java.util.Date;
+import java.util.Scanner;
+import java.util.InputMismatchException;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 
 public class Studente {
     private String Nome;
     private String Cognome;
     private Date DataNascita;
+    private int IDStudente;
     Vector Voti;
+    public Studente(){
+        
+    }
     
     public Studente(String n,String c, Date d){
         Nome=n;
@@ -130,6 +138,48 @@ public class Studente {
             tmp=(Voto)Voti.elementAt(k);
             System.out.printf("%-15s %-15s %-5d%n", tmp.getMateria(), tmp.getDataVoto(), tmp.getvoto());
         }
+    }
+    public int getIDStudente(){
+        return IDStudente;
+    }
+    public void setIDStudente(int x){
+        IDStudente=x;
+    }
+    
+    public void InputStudente(){
+        Scanner sc= new Scanner(System.in);
+        try{
+            System.out.println("Inserisci il cognome: ");
+            Cognome=sc.nextLine();
+        }
+        catch(InputMismatchException e){
+            System.out.println("Errore nell'inserimento del cognome");
+        }
+        
+        try{
+            System.out.println("Inserisci il nome: ");
+            Nome=sc.nextLine();
+        }
+        catch(InputMismatchException e){
+            System.out.println("Errore nell'inserimento del nome");
+        }
+        
+        SimpleDateFormat sd=new SimpleDateFormat("dd-MM-yyyy");
+        String tmp="";
+        try{
+            System.out.println("Inserisci la data di nascita (nel formato dd-MM-yyyy): ");
+            tmp=sc.nextLine();
+            try{
+                DataNascita= sd.parse(tmp);
+            }
+            catch(ParseException e1){
+                System.out.println("Errore nel formato della data");
+            }
+        }
+        catch(InputMismatchException e){
+            System.out.println("Errore nell'inserimento della data");
+        }
+        sc.close();
     }
 }
 
